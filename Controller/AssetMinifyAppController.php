@@ -2,6 +2,10 @@
 
 class AssetMinifyAppController extends AppController {
 
+	public function isAuthorized() {
+		return true;
+	}
+
 	protected function _send($type, $mtime, $ttl, $etag, $content, $size = 0, $compress = false) {
 
 		switch ($type) {
