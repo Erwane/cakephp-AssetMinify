@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * Description de AssetMinifyController
+ *
+ * @author Erwane Breton
+ */
+
+App::uses('AppController', 'Controller');
+
 class AssetMinifyAppController extends AppController {
 
-	public function isAuthorized() {
-		return true;
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		if (isset($this->Auth)) {
+			$this->Auth->allow('css','js');
+		}
 	}
 
 	protected function _send($type, $mtime, $ttl, $etag, $content, $size = 0, $compress = false) {
@@ -50,5 +62,4 @@ class AssetMinifyAppController extends AppController {
 
 		exit;
 	}
-
 }
