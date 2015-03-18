@@ -16,13 +16,12 @@ class MinifyUtils {
     $parts = explode('/', $url);
     $parts = Hash::filter($parts);
 
-    $route = Router::parse($url);
+    $route = Router::parse($url.'/lang:'.Configure::read('Config.language'));
 
     // Thème
     if (isset($route['controller']) && $route['controller'] === 'theme') {
       $parts = array_merge(array('View', 'Themed', $route['action'], 'webroot'), $route['pass']);
     }
-
     // Plugin
     elseif (isset($route['plugin']) && $route['plugin'] != '') {
       foreach ($parts as $k => $v) {

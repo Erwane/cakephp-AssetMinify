@@ -107,8 +107,9 @@ class AssetMinifyHelper extends AppHelper {
 	 */
 
 	public function css() {
-		if ($this->cssCanMinify && empty($this->_urlCss))
+		if ($this->cssCanMinify && empty($this->_urlCss)) {
 			$this->_buildCssConfig();
+		}
 
 		// Pas d'urlCss ? on écrit des tags normaux pour chaque fichier
 		if (empty($this->_urlCss)) {
@@ -136,6 +137,7 @@ class AssetMinifyHelper extends AppHelper {
 
 			$paths[] = array('url' => $url, 'md5' => md5_file(APP . $file), 'file' => preg_replace('`(\\\\|\/)+`', '/', $file));
 		}
+
 
 		$md5 = md5(implode(';', Hash::combine($paths, '{n}.url', array('%s => %s', '{n}.url', '{n}.md5'))));
 		$cssIdentity = Configure::read('debug') > 0 ? md5(implode(';', Hash::extract($this->_styles, '{s}.file'))) : $md5;
