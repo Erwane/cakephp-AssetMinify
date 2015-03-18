@@ -12,4 +12,3 @@ Router::connect('/asset_min/css_:id', array('plugin' => 'AssetMinify', 'controll
 
 // Builds
 Router::connect('/asset_min/build/:type', array('plugin' => 'AssetMinify', 'controller' => 'minify', 'action' => 'build'));
-

@@ -136,6 +136,9 @@ class MinifyUtils {
        * avec un nom MD5 qui va bien puis on remplace l'url dans la CSS par ce fichier racine
        */
       if ($filePath !== false) {
+        // Extrait uniquement le fichier et laisse les fragments/paramètres
+        preg_match('/((#|\?).*[^\)"\'])/', $grep[0][$k], $fragments);
+
         // Ajoute le pattern de recherche pour remplacement
         $pattern[] = '`' . preg_quote($grep[0][$k]) . '`';
         $md5name = md5($filePath);
@@ -149,7 +152,7 @@ class MinifyUtils {
           }
           $images[$fileInfo['md5name']] = $fileInfo;
         }
-        $replace[] = 'url("' . $baseUrl . $images[$md5name]['destname'] . '")';
+        $replace[] = 'url("' . $baseUrl . $images[$md5name]['destname'] . (!empty($fragments) ? $fragments[0] : ''). '")';
       }
     }
 
